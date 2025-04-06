@@ -2,6 +2,7 @@
     constructor() {
         this.currentPool = [...config.totalNumbers];
         this.currentStage = 0;
+        this.allWinners = [];
         this.initEventListeners();
     }
 
@@ -19,6 +20,7 @@
         try {
             const winners = await this.animateSelection(currentPrize.count);
             this.displayResults(winners);
+            this.allWinners.push({ name: currentPrize.name, winners });
             this.updatePool(winners);
             this.updateButton(currentPrize);
         } catch (error) {
@@ -75,6 +77,7 @@
             box.textContent = winners[index] || 'Null';
             box.style.background = '#fffff';
         });
+        fireFireworks();
     }
 
     updatePool(winners) {
@@ -98,14 +101,64 @@
             : ' ';
     }
 
-    showCompletionMessage() {
+    /*showCompletionMessage() {
         const display = document.getElementById('prizeDisplay');
         const message = document.createElement('div');
-        message.style.fontSize = '24px';
-        message.style.color = '#e74c3c';
+        message.style.fontSize = '40px';
+        message.style.color = '#dec92a';
         message.textContent = 'All Done';
         display.appendChild(message);
+    }*/
+
+    showCompletionMessage() {
+            // 1. 淡出原来的数字卡片
+        document.querySelectorAll('.number-box').forEach(box => {
+            box.classList.add('fade-out');
+        });
+        fireFireworks();
+        //setTimeout(() => {fireFireworks();},1000)
+        // 2. 创建 summary panel 内容
+        /*const summary = document.getElementById('summaryPanel');
+        summary.innerHTML = '<h2>🎊 Winner Summary</h2>';
+        summary.classList.add('fade-in'); // 初始化为透明
+
+        this.allWinners.forEach(prize => {
+            const line = document.createElement('div');
+            line.textContent = `${prize.name}: ${prize.winners.join(', ')}`;
+            summary.appendChild(line);
+        });
+
+        // 3. 延迟淡入 summary panel
+        setTimeout(() => {
+            summary.classList.add('show'); // 开始渐入
+        }, 1000); // 1秒之后开始显示*/
+
+        
+    
     }
+}
+function fireFireworks() {
+    const duration = 3 * 1000;
+    const end = Date.now() + duration;
+
+    (function frame() {
+        confetti({
+            particleCount: 6,
+            angle: 60,
+            spread: 100,
+            origin: { x: 0 }
+        });
+        confetti({
+            particleCount: 6,
+            angle: 120,
+            spread: 100,
+            origin: { x: 1 }
+        });
+
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
+        }
+    })();
 }
 
 // 初始化系统

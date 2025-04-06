@@ -6,15 +6,51 @@
     <title>Lottery</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
+    <div id="snowBackground"></div>
+    <audio id="bgm" autoplay loop>
+        <source src="https://cdn.pixabay.com/download/audio/2023/03/01/audio_1457d470f3.mp3?filename=upbeat-funk-background-141686.mp3" type="audio/mpeg">
+    </audio>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS("snowBackground", {
+            particles: {
+            number: { value: 100 },
+            shape: { type: "circle" },
+            opacity: { value: 0.7 },
+            size: { value: 4 },
+            move: {
+                enable: true,
+                speed: 1,
+                direction: "bottom",
+                out_mode: "out"
+            }
+            },
+            interactivity: { events: { onhover: { enable: false } } },
+            background: {
+            color: "transparent"
+            }
+        });
+        const bgm = document.getElementById("bgm");
+        const muteBtn = document.getElementById("muteButton");
+        muteBtn.addEventListener("click", () => {
+            bgm.muted = !bgm.muted;
+            muteBtn.textContent = bgm.muted ? "🔇 Music On" : "🔈 Music Off";
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <button id="muteButton">🔈 Music Off</button>
     <h1 class="page-title">New Year Party Lottery</h1>
+          
     <div class="container">
         <div id="prizeDisplay"></div>
         <div id="buttonContainer">
             <button id="mainButton">Third  Prize</button>
         </div>
     </div>
-
+    <div id="summaryPanel"></div>
     <script src="config.js"></script>
     <script src="js/app.js"></script>
 </body>
