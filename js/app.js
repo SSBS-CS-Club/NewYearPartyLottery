@@ -101,21 +101,21 @@
             : ' ';
     }
 
-    /*showCompletionMessage() {
+    showCompletionMessage() {
         const display = document.getElementById('prizeDisplay');
         const message = document.createElement('div');
         message.style.fontSize = '40px';
         message.style.color = '#dec92a';
         message.textContent = 'All Done';
         display.appendChild(message);
-    }*/
+    }
 
-    showCompletionMessage() {
-            // 1. 淡出原来的数字卡片
-        document.querySelectorAll('.number-box').forEach(box => {
-            box.classList.add('fade-out');
-        });
-        fireFireworks();
+    // showCompletionMessage() {
+    //         // 1. 淡出原来的数字卡片
+    //     document.querySelectorAll('.number-box').forEach(box => {
+    //         box.classList.add('fade-out');
+    //     });
+    //     fireFireworks();
         //setTimeout(() => {fireFireworks();},1000)
         // 2. 创建 summary panel 内容
         /*const summary = document.getElementById('summaryPanel');
@@ -135,7 +135,8 @@
 
         
     
-    }
+    //}
+    
 }
 function fireFireworks() {
     const duration = 3 * 1000;
@@ -159,7 +160,37 @@ function fireFireworks() {
             requestAnimationFrame(frame);
         }
     })();
+
 }
+
+
+
+
 
 // 初始化系统
 new LotterySystem();
+
+window.addEventListener('DOMContentLoaded', () => {
+    const bgm = document.getElementById("bgm");
+    const muteBtn = document.getElementById("muteButton");
+    bgm.muted = true
+    let hasStarted = false
+
+
+    // 初始化按钮文字
+    muteBtn.textContent = bgm.muted ? "🔇 Music Off" : "🔈 Music On";
+
+    // 切换静音 & 更新按钮文字
+    muteBtn.addEventListener('click', () => {
+        if (!hasStarted) {
+            bgm.play().then(() => {
+                hasStarted = true;
+                console.log("音乐播放成功");
+            }).catch((err) => {
+                console.warn("音乐播放被阻止：", err);
+            });
+        }
+        bgm.muted = !bgm.muted;
+        muteBtn.textContent = bgm.muted ? "🔇 Music Off" : "🔈 Music On";
+    });
+});

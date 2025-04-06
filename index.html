@@ -9,9 +9,10 @@
 
 <body>
     <div id="snowBackground"></div>
-    <audio id="bgm" autoplay loop>
-        <source src="https://cdn.pixabay.com/download/audio/2023/03/01/audio_1457d470f3.mp3?filename=upbeat-funk-background-141686.mp3" type="audio/mpeg">
+    <audio id="bgm" loop>
+        <source src="D:/zhaozixu/Club/NewYearPartyLottery/lot/audio/fresh-breeze-321612.mp3" type="audio/mpeg">
     </audio>
+    <button id="muteButton">🔇Music Off</button>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
         particlesJS("snowBackground", {
@@ -32,16 +33,8 @@
             color: "transparent"
             }
         });
-        const bgm = document.getElementById("bgm");
-        const muteBtn = document.getElementById("muteButton");
-        muteBtn.addEventListener("click", () => {
-            bgm.muted = !bgm.muted;
-            muteBtn.textContent = bgm.muted ? "🔇 Music On" : "🔈 Music Off";
-        });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
-    <button id="muteButton">🔈 Music Off</button>
     <h1 class="page-title">New Year Party Lottery</h1>
           
     <div class="container">
